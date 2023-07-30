@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+ <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <arg name="world_name" value="$(find ros_course_part2)/src/Worlds/mail_box.world"/>
+ </include>
+
+ <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro" />
+
+ <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_waffle_pi  -param robot_description" />
+
+
+</launch>

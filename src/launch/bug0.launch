@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="des_x" default="2" />
+    <arg name="des_y" default="-4" />
+     <include file="$(find gazebo_ros)/launch/empty_world.launch">
+           <arg name="world_name" value="$(find autonomous_tb)/world/room2.world"/>
+    </include>
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_waffle_pi.urdf.xacro" />
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" args="-urdf -model turtlebot3_waffle_pi  -param robot_description" />
+    <param name="des_pos_x" value="$(arg des_x)" />
+    <param name="des_pos_y" value="$(arg des_y)" />
+   <node pkg="ros_course_part2" type="wall_follower_alg_bug0.py" name="wall_follower" />
+    <node pkg="ros_course_part2" type="go_to_point_bug0.py" name="go_to_point" />
+    <node pkg="ros_course_part2" type="bug0_manager.py" name="bug0" output="screen" />
+
+</launch>
